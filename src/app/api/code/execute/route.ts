@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
+import vm from "node:vm"
+import { execSync } from "node:child_process"
 
 export const runtime = "nodejs"
 
@@ -19,7 +21,6 @@ export async function POST(req: NextRequest) {
     let output = ""
 
     if (language === "javascript" || language === "typescript") {
-      const vm = require("node:vm")
       const sandbox = {
         console: { log: (...args: unknown[]) => { output += args.map(String).join(" ") + "\n" } },
         setTimeout: () => {},
@@ -34,7 +35,6 @@ export async function POST(req: NextRequest) {
         output = String(result)
       }
     } else if (language === "python") {
-      const { execSync } = require("node:child_process")
       try {
         output = execSync(`python3 -c "${code.replace(/"/g, '\\"').replace(/`/g, '\\`')}"`, {
           timeout: 10000,
