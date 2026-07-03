@@ -29,8 +29,8 @@ export async function POST(req: NextRequest) {
       }
 
       vm.createContext(sandbox)
-      const script = new vm.Script(code, { timeout: 5000 })
-      const result = script.runInContext(sandbox, { timeout: 5000 })
+      const script = new vm.Script(code)
+      const result = script.runInContext(sandbox, { timeout: 5000, breakOnSigint: true })
       if (result !== undefined && output.trim() === "") {
         output = String(result)
       }
