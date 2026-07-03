@@ -1,3 +1,0 @@
-{
-  "buildCommand": "./node_modules/.bin/prisma generate && next build"
-}
