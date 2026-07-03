@@ -66,7 +66,7 @@ export function DebatePanel() {
                     )}
                   </div>
                   <div className="prose prose-xs max-w-none text-sm dark:prose-invert">
-                    <ReactMarkdown>{msg.content.slice(0, 300)}{msg.content.length > 300 ? "..." : ""}</ReactMarkdown>
+                    <ReactMarkdown>{msg.content.slice(0, 300) + (msg.content.length > 300 ? "..." : "")}</ReactMarkdown>
                   </div>
                 </div>
               )
